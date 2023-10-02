@@ -1,0 +1,97 @@
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    
+}
+
+.header{
+    display: flex;
+    flex-direction: column;
+    align-content: center;
+    align-items: center;
+    background-image: url('./images/pic.gif');
+    background-size: 100%;
+    background-repeat: no-repeat;
+    height: 30vh;
+}
+
+.main-title{
+    margin-top: 1rem;
+    text-transform: uppercase;
+}
+
+.text{
+    padding: 5px;
+    border-radius: 5px;
+}
+
+.btn {
+    margin-left: 10px;
+    padding: 5px;
+    background-color: black;
+    color: aliceblue;
+    border-radius: 5px;
+    width: 5rem;
+}
+
+.main{
+    background-color: rgb(163, 228, 228);
+    margin: 2rem;
+    display: flex;
+    justify-content: space-around;
+
+}
+
+.container{
+    justify-content: center;
+    flex-direction: column;
+    text-align: center;
+    width: 200vw;
+}
+
+.favContainer{
+    border-right: 1px solid darkcyan;
+
+}
+
+.list-title{
+    margin: 20px;
+    text-align: center;
+    font-size: 30px;
+}
+
+.list{
+    list-style: none;
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+}
+
+.card{
+    display: flex;
+    flex-direction: column;
+    flex-wrap: wrap;
+    justify-content: space-around;
+    align-items: center;
+    background-color: indianred;
+    margin: 10px;
+    padding: 20px;
+    border-radius: 10px;
+}
+
+.show-name{
+    margin-bottom: 15px;
+
+}
+
+.card-img{
+    border-radius: 10px;
+
+}
+
+.favorite{
+    background-color: seagreen;
+    color: whitesmoke;
+}
