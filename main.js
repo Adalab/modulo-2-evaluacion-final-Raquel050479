@@ -24,7 +24,6 @@ function searchShows(event) {
   event.preventDefault();
   let inputValue = searchInput.value;
   let url = `https://api.tvmaze.com/search/shows?q=${inputValue}`;
-  console.log(url);
 
   fetch(url)
     .then((response) => response.json())
@@ -32,7 +31,6 @@ function searchShows(event) {
       console.log(dataApi);
       shows = []; //limpia la lista de series
       for (const item of dataApi) {
-        console.log(item);
         let urlImage = defaultImage;
         //si la serie no tiene imagen sale la imagen por defecto y si la tiene muestra la imagen
         if (item.show.image !== null) {
@@ -53,7 +51,7 @@ function searchShows(event) {
     });
 }
 
-//función para crear con DOM una serie y nos devuelve el objeto(tarjeta de serie)
+//función para crear una serie y nos devuelve el objeto(tarjeta de serie)
 function renderShow(oneShow) {
   let objectShow = '';
   const isFav = favShowsList.some((favShow) => favShow.id === oneShow.id);
@@ -75,11 +73,9 @@ function renderShow(oneShow) {
 //función para pintar la lista de series
 function renderShowList(shows) {
   showList.innerHTML = '';
-
   for (const item of shows) {
     showList.innerHTML += renderShow(item);
   }
-
   addEventsToShows();
 }
 
@@ -118,7 +114,6 @@ function renderFavList(favShows) {
 //función handle que añade una serie favorita a su lista al hacer click
 function addEventsToShows() {
   const favShows = document.querySelectorAll('.js-card');
-  console.log(favShows);
   for (const item of favShows) {
     item.addEventListener('click', addToFav);
   }
