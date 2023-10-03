@@ -107,8 +107,25 @@ function addToFav(event) {
 
 //función para pintar la lista de favoritas
 function renderFavList(favShows) {
-  const favListHTML = favShows.map((item) => renderShow(item, true)).join('');
+  const favListHTML = favShows
+    .map((item) => {
+      return `
+      <li class="card js-card favorite" id="${item.id}">
+        <span class="x-fav" id="remove${item.id}">X</span> <!-- Botón X -->
+        <h3 class="show-name">${item.name}</h3>
+        <img class="card-img" src="${item.photo}" title="${item.name}" alt="${item.name}"/>
+      </li>
+    `;
+    })
+    .join('');
+  //agregar la lista de favoritas al elemento HTML
   favList.innerHTML = favListHTML;
+
+  //asignar el evento click al botón de X para eliminar la serie
+  favShows.forEach((item) => {
+    const removeButton = document.getElementById(`remove${item.id}`);
+    removeButton.addEventListener('click', () => removeFromFav(item.id));
+  });
 }
 
 //función handle que añade una serie favorita a su lista al hacer click
@@ -118,6 +135,19 @@ function addEventsToShows() {
     item.addEventListener('click', addToFav);
   }
   renderFavList(favShowsList);
+}
+
+//función que elimina una serie favorita de la lista
+function removeFromFav(showId) {
+  const indexFav = favShowsList.findIndex((oneShow) => oneShow.id === showId); //encuentra el índice de la serie en la lista de favoritas
+  if (indexFav !== -1) {
+    //elimina la serie en la lista de favoritas
+    favShowsList.splice(indexFav, 1);
+    //actualiza la lista de favoritas en la interfaz de la usuaria
+    renderFavList(favShowsList);
+    //actualiza la lista de favoritas en el localStorage
+    localStorage.setItem('favShowsList', JSON.stringify(favShowsList));
+  }
 }
 
 //función que elimina las series favoritas

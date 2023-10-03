@@ -92,6 +92,16 @@
 }
 
 .favorite{
-    background-color: seagreen;
+    background-color: rgb(199, 130, 233);
     color: whitesmoke;
+}
+
+.x-fav{
+    width: 20px;
+    text-align: center;
+    align-self: flex-end;
+    background-color: black;
+    border-radius: 5px;
+    padding: 3px;
+    cursor: pointer;
 }
