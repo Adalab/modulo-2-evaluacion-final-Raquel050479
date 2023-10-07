@@ -41,6 +41,7 @@ function searchShows(event) {
           id: item.show.id,
           name: item.show.name,
           photo: urlImage,
+          schedule: item.show.schedule,
         };
 
         //agregar la serie a la lista
@@ -54,15 +55,25 @@ function searchShows(event) {
 //función para crear una serie y nos devuelve el objeto(tarjeta de serie)
 function renderShow(oneShow) {
   let objectShow = '';
+  let hasSchedule = oneShow.schedule.days; // [day1, day2, day3]
   const isFav = favShowsList.some((favShow) => favShow.id === oneShow.id);
+  //const hasSchedule = oneShow.includes(oneShow.length);
+
+  //hasSchedule ? vacío : oneShow.schedule.days;
   if (isFav) {
     objectShow = `<li class="card js-card favorite" id="${oneShow.id}">
       <h3 class="show-name">${oneShow.name}</h3>
-      <img class="card-img" src="${oneShow.photo}" title=${oneShow.name} alt="${oneShow.name}"/>
+      <p class="show-schedule">${
+        hasSchedule.length === 0 ? 'No schedules' : hasSchedule
+      }</p>
+      <img class="card-img" src="${oneShow.photo}" title=${oneShow.name} alt="${
+      oneShow.name
+    }"/>
       </li>`;
   } else {
     objectShow = `<li class="card js-card" id="${oneShow.id}">
     <h3 class="show-name">${oneShow.name}</h3>
+    <p class="show-schedule">${oneShow.schedule.days}</p>
     <img class="card-img" src="${oneShow.photo}" title=${oneShow.name} alt="${oneShow.name}"/>
     </li>`;
   }
@@ -77,6 +88,12 @@ function renderShowList(shows) {
     showList.innerHTML += renderShow(item);
   }
   addEventsToShows();
+}
+
+//función para pintar la lista de favoritas
+function renderFavList(favShows) {
+  const favListHTML = favShows.map((item) => renderShow(item, true)).join('');
+  favList.innerHTML = favListHTML;
 }
 
 //FUNCIÓN PARA AÑADIR UNA SERIE A LA LISTA DE FAVORITAS
@@ -100,15 +117,9 @@ function addToFav(event) {
     favShowsList.splice(indexFav, 1);
     event.currentTarget.classList.remove('favorite'); //quita la clase favorite para cambiar estilos
   }
-
+  console.log(`Nombre: ${foundShow.name}`);
   renderFavList(favShowsList);
   localStorage.setItem('favShowsList', JSON.stringify(favShowsList));
-}
-
-//función para pintar la lista de favoritas
-function renderFavList(favShows) {
-  const favListHTML = favShows.map((item) => renderShow(item, true)).join('');
-  favList.innerHTML = favListHTML;
 }
 
 //función handle que añade una serie favorita a su lista al hacer click
